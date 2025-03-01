@@ -25,7 +25,7 @@ class AppTheme {
       bodyMedium: GoogleFonts.raleway(
         textStyle: base.bodyMedium,
         color: textColor,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
       bodySmall: GoogleFonts.raleway(
         textStyle: base.bodySmall,

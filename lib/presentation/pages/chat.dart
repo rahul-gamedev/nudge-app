@@ -135,9 +135,9 @@ class Chat extends StatelessWidget {
                     color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
                   ),
                   contentPadding: EdgeInsets.only(
-                    right: 24,
-                    top: 20,
-                    bottom: 20,
+                    right: 20,
+                    top: 24,
+                    bottom: 24,
                     left: 20,
                   ),
                   filled: true,
@@ -148,12 +148,12 @@ class Chat extends StatelessWidget {
                   ),
                   // Attachment button on left side
                   prefixIcon: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    margin: EdgeInsets.only(left: 8),
                     height: 48,
                     width: 48,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(width: 1, color: AppColor.grey),
+                      // border: Border.all(width: 1, color: AppColor.grey),
                     ),
                     child: IconButton(
                       icon: SvgPicture.asset(
@@ -193,6 +193,7 @@ class Chat extends StatelessWidget {
                     ),
                   ),
                 ),
+                style: theme.textTheme.bodyMedium,
               ),
             ),
           ),
