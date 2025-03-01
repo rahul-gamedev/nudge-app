@@ -3,37 +3,37 @@ import 'package:nudge_app/domain/config/theme/app_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Define Montserrat text theme for the entire app
-  static TextTheme _buildMontserratTextTheme(TextTheme base, Color textColor) {
-    return GoogleFonts.montserratTextTheme(base).copyWith(
-      headlineLarge: GoogleFonts.montserrat(
+  // Define raleway text theme for the entire app
+  static TextTheme _buildTextTheme(TextTheme base, Color textColor) {
+    return GoogleFonts.ralewayTextTheme(base).copyWith(
+      headlineLarge: GoogleFonts.raleway(
         textStyle: base.headlineLarge,
         color: textColor,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
       ),
-      headlineMedium: GoogleFonts.montserrat(
+      headlineMedium: GoogleFonts.raleway(
         textStyle: base.headlineMedium,
         color: textColor,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
 
-      bodyLarge: GoogleFonts.montserrat(
+      bodyLarge: GoogleFonts.raleway(
         textStyle: base.bodyLarge,
         color: textColor,
         fontWeight: FontWeight.w400,
       ),
-      bodyMedium: GoogleFonts.montserrat(
+      bodyMedium: GoogleFonts.raleway(
         textStyle: base.bodyMedium,
         color: textColor,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
       ),
-      bodySmall: GoogleFonts.montserrat(
+      bodySmall: GoogleFonts.raleway(
         textStyle: base.bodySmall,
         color: textColor,
         fontWeight: FontWeight.w300,
       ),
 
-      labelLarge: GoogleFonts.montserrat(
+      labelLarge: GoogleFonts.raleway(
         textStyle: base.labelLarge,
         color: textColor,
         fontWeight: FontWeight.w500,
@@ -58,11 +58,11 @@ class AppTheme {
         selectionColor: AppColor.accent.withValues(alpha: .3),
         selectionHandleColor: AppColor.accent,
       ),
-      textTheme: _buildMontserratTextTheme(base.textTheme, Colors.black),
-      primaryTextTheme: _buildMontserratTextTheme(
-        base.primaryTextTheme,
-        Colors.black,
-      ),
+      textTheme: _buildTextTheme(base.textTheme, Colors.black),
+      primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.black),
+      primaryColorLight: AppColor.light,
+      primaryColorDark: AppColor.dark,
+      iconButtonTheme: IconButtonThemeData(),
     );
   }
 
@@ -82,11 +82,8 @@ class AppTheme {
         selectionColor: AppColor.accent.withValues(alpha: .3),
         selectionHandleColor: AppColor.accent,
       ),
-      textTheme: _buildMontserratTextTheme(base.textTheme, Colors.white),
-      primaryTextTheme: _buildMontserratTextTheme(
-        base.primaryTextTheme,
-        Colors.white,
-      ),
+      textTheme: _buildTextTheme(base.textTheme, Colors.white),
+      primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.white),
     );
   }
 }
