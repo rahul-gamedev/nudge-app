@@ -10,7 +10,7 @@ class Chat extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nudge', style: TextStyle(fontWeight: FontWeight.w500)),
+        title: Text('Nudge', style: theme.textTheme.headlineLarge),
         centerTitle: true,
         leadingWidth: 52,
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu_rounded)),
@@ -51,10 +51,7 @@ class Chat extends StatelessWidget {
                       ),
                       child: Text(
                         "Hi there! How can I help you today?",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: isDarkMode ? Colors.white : Colors.black,
-                        ),
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                   ),
@@ -74,10 +71,7 @@ class Chat extends StatelessWidget {
                       ),
                       child: Text(
                         "I need help with my project!!!!!!!",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: isDarkMode ? Colors.white : Colors.black,
-                        ),
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                   ),
@@ -112,9 +106,8 @@ class Chat extends StatelessWidget {
                 autofocus: true,
                 decoration: InputDecoration(
                   hintText: 'Type a message...',
-                  hintStyle: TextStyle(
+                  hintStyle: theme.textTheme.bodyMedium?.copyWith(
                     color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                    fontSize: 16,
                   ),
                   contentPadding: EdgeInsets.only(
                     right: 24,
