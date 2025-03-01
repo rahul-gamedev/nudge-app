@@ -183,7 +183,7 @@ class Chat extends StatelessWidget {
                       icon: SvgPicture.asset(
                         IconConfig.arrowRight,
                         colorFilter: ColorFilter.mode(
-                          theme.scaffoldBackgroundColor,
+                          AppColor.light,
                           BlendMode.srcIn,
                         ),
                       ),
