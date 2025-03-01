@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nudge_app/domain/config/icon/icon_config.dart';
+import 'package:nudge_app/domain/config/theme/app_color.dart';
 
 class Chat extends StatelessWidget {
   const Chat({super.key});
@@ -12,12 +15,34 @@ class Chat extends StatelessWidget {
       appBar: AppBar(
         title: Text('Nudge', style: theme.textTheme.headlineLarge),
         centerTitle: true,
-        leadingWidth: 52,
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu_rounded)),
+        leadingWidth: 68, // Increased to accommodate the margin
+        // automaticallyImplyLeading: true,
+        leading: Container(
+          margin: EdgeInsets.only(left: 12),
+          child: IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              IconConfig.menu,
+              semanticsLabel: "Menu",
+              colorFilter: ColorFilter.mode(
+                theme.appBarTheme.foregroundColor!,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ),
+        actionsPadding: EdgeInsets.only(right: 16),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.insert_drive_file_rounded),
+            icon: SvgPicture.asset(
+              IconConfig.ellipsis,
+              colorFilter: ColorFilter.mode(
+                theme.appBarTheme.foregroundColor!,
+                BlendMode.srcIn,
+              ),
+            ),
+            color: theme.appBarTheme.foregroundColor,
           ),
         ],
       ),
@@ -128,22 +153,20 @@ class Chat extends StatelessWidget {
                     width: 48,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 2,
-                        color:
-                            isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
-                      ),
+                      border: Border.all(width: 1, color: AppColor.grey),
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.add_rounded,
-                        size: 22,
-                        color: isDarkMode ? Colors.white : Colors.black,
+                      icon: SvgPicture.asset(
+                        IconConfig.paperClip,
+                        colorFilter: ColorFilter.mode(
+                          AppColor.grey,
+                          BlendMode.srcIn,
+                        ),
                       ),
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                       onPressed: () {
-                        // Handle attachment action
+                        // Handle attachment actionHello
                       },
                     ),
                   ),
@@ -157,10 +180,12 @@ class Chat extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_forward_outlined,
-                        color: Colors.white,
-                        size: 22,
+                      icon: SvgPicture.asset(
+                        IconConfig.arrowRight,
+                        colorFilter: ColorFilter.mode(
+                          theme.scaffoldBackgroundColor,
+                          BlendMode.srcIn,
+                        ),
                       ),
                       onPressed: () {
                         // Handle send message action
