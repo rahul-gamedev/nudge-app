@@ -52,6 +52,11 @@ class AppTheme {
         backgroundColor: AppColor.light,
         foregroundColor: AppColor.dark,
       ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColor.accent,
+        selectionColor: AppColor.accent.withValues(alpha: .2),
+        selectionHandleColor: AppColor.accent,
+      ),
       textTheme: _buildTextTheme(base.textTheme, Colors.black),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.black),
       // Add these properties for monochrome ListTiles
@@ -78,6 +83,11 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColor.dark,
         foregroundColor: AppColor.light,
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColor.accent,
+        selectionColor: AppColor.accent.withValues(alpha: .2),
+        selectionHandleColor: AppColor.accent,
       ),
       textTheme: _buildTextTheme(base.textTheme, Colors.white),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.white),

@@ -13,7 +13,7 @@ class Chat extends StatelessWidget {
       appBar: const ChatAppBar(),
       drawer: const AppDrawer(), // Add the drawer here
       // Enable swipe gesture to open drawer (default in Scaffold)
-      drawerEdgeDragWidth: 200, // Customize drag area width if needed
+      drawerEdgeDragWidth: 512, // Customize drag area width if needed
       body: Column(
         children: [
           const MessageContainer(),

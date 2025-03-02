@@ -10,7 +10,7 @@ class AppDrawer extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Drawer(
-      width: 284,
+      width: 256,
       backgroundColor: theme.scaffoldBackgroundColor,
       child: SafeArea(
         child: Column(
