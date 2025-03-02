@@ -107,94 +107,104 @@ class Chat extends StatelessWidget {
 
           // Text input field - fixed at bottom
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        isDarkMode
-                            ? Colors.white.withValues(alpha: .15)
-                            : Colors.grey.withValues(alpha: .3),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: TextField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  hintText: 'Type a message...',
-                  hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: isDarkMode ? Colors.grey[400] : Colors.grey[600],
-                  ),
-                  contentPadding: EdgeInsets.only(
-                    right: 20,
-                    top: 24,
-                    bottom: 24,
-                    left: 20,
-                  ),
-                  filled: true,
-                  fillColor: theme.scaffoldBackgroundColor,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100)),
-                    borderSide: BorderSide.none,
-                  ),
-                  // Attachment button on left side
-                  prefixIcon: Container(
-                    margin: EdgeInsets.only(left: 8),
-                    height: 48,
-                    width: 48,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Text field in expanded container
+                Expanded(
+                  child: Container(
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      // border: Border.all(width: 1, color: AppColor.grey),
-                    ),
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        IconConfig.paperClip,
-                        colorFilter: ColorFilter.mode(
-                          AppColor.grey,
-                          BlendMode.srcIn,
-                        ),
+                      border: Border.all(
+                        color:
+                            isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+                        width: 1,
                       ),
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                      onPressed: () {
-                        // Handle attachment actionHello
-                      },
-                    ),
-                  ),
-                  // Send button on right side
-                  suffixIcon: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        IconConfig.arrowRight,
-                        colorFilter: ColorFilter.mode(
-                          AppColor.light,
-                          BlendMode.srcIn,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              isDarkMode
+                                  ? Colors.white.withValues(alpha: .1)
+                                  : Colors.grey.withValues(alpha: .3),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(0, 2),
                         ),
+                      ],
+                    ),
+                    child: TextField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        hintText: 'Type a message...',
+                        hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                          color:
+                              isDarkMode ? Colors.grey[400] : Colors.grey[600],
+                        ),
+                        contentPadding: EdgeInsets.only(
+                          right: 16,
+                          top: 14,
+                          bottom: 14,
+                          left: 8,
+                        ),
+                        filled: true,
+                        fillColor: theme.scaffoldBackgroundColor,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                          borderSide: BorderSide.none,
+                        ),
+                        // Attachment button on left side
+                        prefixIcon: Container(
+                          // padding: EdgeInsets.only(left: 4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          child: IconButton(
+                            icon: SvgPicture.asset(
+                              IconConfig.paperClip,
+                              colorFilter: ColorFilter.mode(
+                                AppColor.grey,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                            onPressed: () {
+                              // Handle attachment action
+                            },
+                          ),
+                        ),
+                        // No suffix icon anymore
                       ),
-                      onPressed: () {
-                        // Handle send message action
-                      },
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ),
                 ),
-                style: theme.textTheme.bodyMedium,
-              ),
+
+                // Add spacing between text field and send button
+                SizedBox(width: 6),
+
+                // Send button outside the text field
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      IconConfig.arrowRight,
+                      colorFilter: ColorFilter.mode(
+                        AppColor.light,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                    onPressed: () {
+                      // Handle send message action
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
