@@ -20,7 +20,7 @@ class AppTheme {
       bodyLarge: GoogleFonts.raleway(
         textStyle: base.bodyLarge,
         color: textColor,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
       ),
       bodyMedium: GoogleFonts.raleway(
         textStyle: base.bodyMedium,
@@ -52,17 +52,19 @@ class AppTheme {
         backgroundColor: AppColor.light,
         foregroundColor: AppColor.dark,
       ),
-      highlightColor: AppColor.accent,
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: AppColor.accent,
-        selectionColor: AppColor.accent.withValues(alpha: .3),
-        selectionHandleColor: AppColor.accent,
-      ),
       textTheme: _buildTextTheme(base.textTheme, Colors.black),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.black),
-      primaryColorLight: AppColor.light,
-      primaryColorDark: AppColor.dark,
-      iconButtonTheme: IconButtonThemeData(),
+      // Add these properties for monochrome ListTiles
+      splashColor: Colors.grey.withValues(alpha: .1),
+      splashFactory: InkRipple.splashFactory,
+      listTileTheme: const ListTileThemeData(
+        tileColor: Colors.transparent,
+        selectedTileColor: Color(0xFFF5F5F5), // Light grey for selected
+        iconColor: AppColor.dark,
+        textColor: AppColor.dark,
+        selectedColor: AppColor.dark, // Keep text dark even when selected
+        contentPadding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+      ),
     );
   }
 
@@ -77,13 +79,19 @@ class AppTheme {
         backgroundColor: AppColor.dark,
         foregroundColor: AppColor.light,
       ),
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: AppColor.accent,
-        selectionColor: AppColor.accent.withValues(alpha: .3),
-        selectionHandleColor: AppColor.accent,
-      ),
       textTheme: _buildTextTheme(base.textTheme, Colors.white),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme, Colors.white),
+      // Add these properties for monochrome ListTiles
+      splashColor: Colors.white.withValues(alpha: .1),
+      splashFactory: InkRipple.splashFactory,
+      listTileTheme: const ListTileThemeData(
+        tileColor: Colors.transparent,
+        selectedTileColor: Color(0xFF333333), // Dark grey for selected
+        iconColor: AppColor.light,
+        textColor: AppColor.light,
+        selectedColor: AppColor.light, // Keep text light even when selected
+        contentPadding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+      ),
     );
   }
 }

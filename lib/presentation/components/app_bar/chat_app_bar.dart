@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nudge_app/domain/config/icon/icon_config.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ChatAppBar({super.key});
+  final VoidCallback? onMenuPressed;
+
+  const ChatAppBar({super.key, this.onMenuPressed});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -19,7 +21,13 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Container(
         margin: const EdgeInsets.only(left: 12),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            if (onMenuPressed != null) {
+              onMenuPressed!();
+            } else {
+              Scaffold.of(context).openDrawer();
+            }
+          },
           icon: SvgPicture.asset(
             IconConfig.menu,
             semanticsLabel: "Menu",

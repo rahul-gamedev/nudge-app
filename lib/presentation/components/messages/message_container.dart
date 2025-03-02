@@ -19,6 +19,7 @@ class MessageContainer extends StatelessWidget {
               message: "I need help with my project!!!!!!!",
               type: MessageType.sent,
             ),
+            MessageBubble(message: "Okay..", type: MessageType.received),
           ],
         ),
       ),

@@ -7,4 +7,8 @@ class IconConfig {
   static const menu = "${base}menu$format";
   static const mic = "${base}mic$format";
   static const paperClip = "${base}paperclip$format";
+  static const home = "${base}house$format";
+  static const logOut = "${base}log-out$format";
+  static const settings = "${base}settings$format";
+  static const user = "${base}user$format";
 }

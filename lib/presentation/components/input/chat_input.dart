@@ -7,11 +7,7 @@ class ChatInput extends StatelessWidget {
   final Function()? onSendPressed;
   final Function()? onAttachmentPressed;
 
-  const ChatInput({
-    super.key,
-    this.onSendPressed,
-    this.onAttachmentPressed,
-  });
+  const ChatInput({super.key, this.onSendPressed, this.onAttachmentPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +30,10 @@ class ChatInput extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: isDarkMode
-                        ? Colors.white.withValues(alpha: .1)
-                        : Colors.grey.withValues(alpha: .3),
+                    color:
+                        isDarkMode
+                            ? Colors.white.withValues(alpha: .1)
+                            : Colors.grey.withValues(alpha: .3),
                     spreadRadius: 1,
                     blurRadius: 5,
                     offset: const Offset(0, 2),
@@ -44,7 +41,7 @@ class ChatInput extends StatelessWidget {
                 ],
               ),
               child: TextField(
-                autofocus: true,
+                // autofocus: true,
                 decoration: InputDecoration(
                   hintText: 'Type a message...',
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
