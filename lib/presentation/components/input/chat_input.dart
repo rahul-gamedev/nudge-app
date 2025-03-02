@@ -94,7 +94,7 @@ class ChatInput extends StatelessWidget {
             ),
             child: IconButton(
               icon: SvgPicture.asset(
-                IconConfig.arrowRight,
+                IconConfig.arrowUp,
                 colorFilter: const ColorFilter.mode(
                   AppColor.light,
                   BlendMode.srcIn,

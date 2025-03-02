@@ -11,4 +11,6 @@ class IconConfig {
   static const logOut = "${base}log-out$format";
   static const settings = "${base}settings$format";
   static const user = "${base}user$format";
+  static const arrowUp = "${base}arrow-up$format";
+  static const send = "${base}send-horizontal$format";
 }
