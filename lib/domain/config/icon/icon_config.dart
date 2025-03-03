@@ -13,4 +13,6 @@ class IconConfig {
   static const user = "${base}user$format";
   static const arrowUp = "${base}arrow-up$format";
   static const send = "${base}send-horizontal$format";
+  static const clipboard = "${base}clipboard$format";
+  static const trash = "${base}trash$format";
 }
