@@ -1,48 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:nudge_app/presentation/components/app_bar/chat_app_bar.dart';
-import 'package:nudge_app/presentation/components/messages/message_bubble.dart';
 import 'package:nudge_app/presentation/components/messages/message_container.dart';
 import 'package:nudge_app/presentation/components/input/chat_input.dart';
 import 'package:nudge_app/presentation/components/app_bar/app_drawer.dart';
+import 'package:nudge_app/presentation/components/messages/message_bubble.dart';
 
-class Chat extends StatelessWidget {
+class Chat extends StatefulWidget {
   const Chat({super.key});
+
+  @override
+  State<Chat> createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  final GlobalKey<MessageContainerState> _messageContainerKey = GlobalKey();
+
+  void _handleSendMessage(String messageText) {
+    if (_messageContainerKey.currentState != null && messageText.isNotEmpty) {
+      final message = Message(
+        content: messageText,
+        type: MessageType.sent,
+        timestamp: DateTime.now(),
+      );
+      _messageContainerKey.currentState!.addMessage(message);
+      final reply = Message(
+        content: "Typing...",
+        type: MessageType.received,
+        timestamp: DateTime.now(),
+      );
+      _messageContainerKey.currentState!.addMessage(reply);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ChatAppBar(),
-      drawer: const AppDrawer(), // Add the drawer here
-      // Enable swipe gesture to open drawer (default in Scaffold)
-      drawerEdgeDragWidth: 512, // Customize drag area width if needed
+      drawer: const AppDrawer(),
+      drawerEdgeDragWidth: 312,
       body: Column(
         children: [
-          MessageContainer(
-            messages: [
-              Message(
-                content: "Hello! Welcome to the app.",
-                type: MessageType.received,
-              ),
-              Message(
-                content: "Thanks for the warm welcome!",
-                type: MessageType.sent,
-              ),
-              Message(
-                content: "How can I help you today?",
-                type: MessageType.received,
-              ),
-              Message(
-                content:
-                    "How can I help you today? How can I help you today? How can I help you today?",
-                type: MessageType.received,
-              ),
-              Message(content: "Mm", type: MessageType.sent),
-            ],
-          ),
+          MessageContainer(key: _messageContainerKey),
           ChatInput(
-            onSendPressed: () {
-              // Handle send message
-            },
+            onSendPressed: _handleSendMessage,
             onAttachmentPressed: () {
               // Handle attachment
             },

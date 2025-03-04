@@ -18,6 +18,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text('Nudge', style: theme.textTheme.headlineLarge),
       centerTitle: true,
       leadingWidth: 68,
+      forceMaterialTransparency: true,
       leading: Container(
         margin: const EdgeInsets.only(left: 12),
         child: IconButton(

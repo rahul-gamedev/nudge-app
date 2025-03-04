@@ -3,11 +3,32 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nudge_app/domain/config/icon/icon_config.dart';
 import 'package:nudge_app/domain/config/theme/app_color.dart';
 
-class ChatInput extends StatelessWidget {
-  final Function()? onSendPressed;
+class ChatInput extends StatefulWidget {
+  final Function(String message)? onSendPressed;
   final Function()? onAttachmentPressed;
 
   const ChatInput({super.key, this.onSendPressed, this.onAttachmentPressed});
+
+  @override
+  State<ChatInput> createState() => _ChatInputState();
+}
+
+class _ChatInputState extends State<ChatInput> {
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  void _handleSend() {
+    if (_textController.text.trim().isNotEmpty &&
+        widget.onSendPressed != null) {
+      widget.onSendPressed!(_textController.text.trim());
+      _textController.clear();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +62,7 @@ class ChatInput extends StatelessWidget {
                 ],
               ),
               child: TextField(
-                // autofocus: true,
+                controller: _textController,
                 decoration: InputDecoration(
                   hintText: 'Type a message...',
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
@@ -72,11 +93,13 @@ class ChatInput extends StatelessWidget {
                           BlendMode.srcIn,
                         ),
                       ),
-                      onPressed: onAttachmentPressed,
+                      onPressed: widget.onAttachmentPressed,
                     ),
                   ),
                 ),
                 style: theme.textTheme.bodyMedium,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => _handleSend(),
               ),
             ),
           ),
@@ -100,7 +123,7 @@ class ChatInput extends StatelessWidget {
                   BlendMode.srcIn,
                 ),
               ),
-              onPressed: onSendPressed,
+              onPressed: _handleSend,
             ),
           ),
         ],
