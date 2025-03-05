@@ -70,6 +70,50 @@ class AppTheme {
         selectedColor: AppColor.dark, // Keep text dark even when selected
         contentPadding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
       ),
+      // Add theming for loading indicators
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: AppColor.accent,
+        linearTrackColor: AppColor.accent.withValues(alpha: 0.2),
+        circularTrackColor: AppColor.accent.withValues(alpha: 0.1),
+        refreshBackgroundColor: Colors.grey[200],
+      ),
+      // Add theming for elevated buttons
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.disabled)) {
+              return Colors.grey[300]!;
+            }
+            if (states.contains(WidgetState.pressed)) {
+              return AppColor.accent.withValues(alpha: 0.8);
+            }
+            return AppColor.accent;
+          }),
+          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          textStyle: WidgetStateProperty.all<TextStyle>(
+            GoogleFonts.raleway(fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          elevation: WidgetStateProperty.resolveWith<double>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.pressed)) {
+              return 2;
+            }
+            return 1;
+          }),
+          overlayColor: WidgetStateProperty.all<Color>(
+            Colors.white.withValues(alpha: 0.1),
+          ),
+        ),
+      ),
     );
   }
 
@@ -101,6 +145,50 @@ class AppTheme {
         textColor: AppColor.light,
         selectedColor: AppColor.light, // Keep text light even when selected
         contentPadding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+      ),
+      // Add theming for loading indicators
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: AppColor.accent,
+        linearTrackColor: AppColor.accent.withValues(alpha: 0.2),
+        circularTrackColor: AppColor.accent.withValues(alpha: 0.1),
+        refreshBackgroundColor: Colors.grey[800],
+      ),
+      // Add theming for elevated buttons
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.disabled)) {
+              return Colors.grey[700]!;
+            }
+            if (states.contains(WidgetState.pressed)) {
+              return AppColor.accent.withValues(alpha: 0.8);
+            }
+            return AppColor.accent;
+          }),
+          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          textStyle: WidgetStateProperty.all<TextStyle>(
+            GoogleFonts.raleway(fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          elevation: WidgetStateProperty.resolveWith<double>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.pressed)) {
+              return 2;
+            }
+            return 1;
+          }),
+          overlayColor: WidgetStateProperty.all<Color>(
+            Colors.white.withValues(alpha: 0.1),
+          ),
+        ),
       ),
     );
   }
