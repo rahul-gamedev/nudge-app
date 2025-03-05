@@ -6,8 +6,14 @@ import 'package:nudge_app/domain/config/theme/app_color.dart';
 class ChatInput extends StatefulWidget {
   final Function(String message)? onSendPressed;
   final Function()? onAttachmentPressed;
+  final Function()? onMicPressed;
 
-  const ChatInput({super.key, this.onSendPressed, this.onAttachmentPressed});
+  const ChatInput({
+    super.key,
+    this.onSendPressed,
+    this.onAttachmentPressed,
+    this.onMicPressed,
+  });
 
   @override
   State<ChatInput> createState() => _ChatInputState();
@@ -15,18 +21,42 @@ class ChatInput extends StatefulWidget {
 
 class _ChatInputState extends State<ChatInput> {
   final TextEditingController _textController = TextEditingController();
+  bool _isTextEmpty = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add listener to track text changes
+    _textController.addListener(_handleTextChange);
+  }
 
   @override
   void dispose() {
+    _textController.removeListener(_handleTextChange);
     _textController.dispose();
     super.dispose();
   }
 
+  // Update state when text changes
+  void _handleTextChange() {
+    final isEmptyNow = _textController.text.trim().isEmpty;
+    if (isEmptyNow != _isTextEmpty) {
+      setState(() {
+        _isTextEmpty = isEmptyNow;
+      });
+    }
+  }
+
   void _handleSend() {
-    if (_textController.text.trim().isNotEmpty &&
-        widget.onSendPressed != null) {
+    if (!_isTextEmpty && widget.onSendPressed != null) {
       widget.onSendPressed!(_textController.text.trim());
       _textController.clear();
+    }
+  }
+
+  void _handleMicPress() {
+    if (widget.onMicPressed != null) {
+      widget.onMicPressed!();
     }
   }
 
@@ -88,7 +118,7 @@ class _ChatInputState extends State<ChatInput> {
                     child: IconButton(
                       icon: SvgPicture.asset(
                         IconConfig.paperClip,
-                        colorFilter: const ColorFilter.mode(
+                        colorFilter: ColorFilter.mode(
                           AppColor.grey,
                           BlendMode.srcIn,
                         ),
@@ -107,7 +137,7 @@ class _ChatInputState extends State<ChatInput> {
           // Add spacing between text field and send button
           const SizedBox(width: 6),
 
-          // Send button outside the text field
+          // Conditionally show mic or send button
           Container(
             width: 48,
             height: 48,
@@ -117,13 +147,14 @@ class _ChatInputState extends State<ChatInput> {
             ),
             child: IconButton(
               icon: SvgPicture.asset(
-                IconConfig.arrowUp,
+                // Show mic icon when empty, send icon when there's text
+                _isTextEmpty ? IconConfig.mic : IconConfig.arrowUp,
                 colorFilter: const ColorFilter.mode(
                   AppColor.light,
                   BlendMode.srcIn,
                 ),
               ),
-              onPressed: _handleSend,
+              onPressed: _isTextEmpty ? _handleMicPress : _handleSend,
             ),
           ),
         ],

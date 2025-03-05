@@ -98,6 +98,9 @@ class MessageContainerState extends State<MessageContainer> {
           messages = fetchedMessages;
           isLoading = false;
         });
+
+        // Jump to bottom without animation after loading messages
+        _scrollToBottom(animated: false);
       } else {
         setState(() {
           isLoading = false;
@@ -114,54 +117,84 @@ class MessageContainerState extends State<MessageContainer> {
     }
   }
 
-  // Add a new message to the list
+  // Simplified scroll method
+  void _scrollToBottom({bool animated = true}) {
+    if (!_scrollController.hasClients) return;
+
+    if (animated) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent + 1000,
+        duration: const Duration(milliseconds: 350), // Very short animation
+        curve: Curves.easeOut,
+      );
+    } else {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    }
+  }
+
+  // Update the addMessage method to scroll immediately
   void addMessage(Message message) {
     setState(() {
       messages.add(message);
     });
 
-    // Scroll to the bottom after adding a message
+    // Scroll immediately after adding, without unnecessary delays
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.easeOut,
-        );
-      }
+      _scrollToBottom();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(4),
-        child:
-            isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : messages.isEmpty
-                ? _buildEmptyState()
-                : ListView.builder(
-                  controller: _scrollController,
-                  itemCount: messages.length,
-                  reverse: false, // Set to true if you want newest at bottom
-                  itemBuilder: (context, index) {
-                    final message = messages[index];
-                    return MessageBubble(
-                      message: message.content,
-                      type: message.type,
-                      timestamp: message.timestamp,
-                      onTap: () {
-                        // Handle message tap
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(4),
+            child:
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : messages.isEmpty
+                    ? _buildEmptyState()
+                    : ListView.builder(
+                      controller: _scrollController,
+                      itemCount: messages.length,
+                      padding: const EdgeInsets.only(
+                        bottom: 16,
+                      ), // More bottom padding
+                      reverse: false,
+                      itemBuilder: (context, index) {
+                        final message = messages[index];
+                        return MessageBubble(
+                          message: message.content,
+                          type: message.type,
+                          timestamp: message.timestamp,
+                          onTap: () {},
+                          onLongPress: () {
+                            _showMessageOptions(context, message);
+                            _showMessageOptions(context, message);
+                          },
+                        );
                       },
-                      onLongPress: () {
-                        // Show options for the message
-                        _showMessageOptions(context, message);
-                      },
-                    );
-                  },
-                ),
+                    ),
+          ),
+
+          // Just show the button always for simplicity
+          Positioned(
+            right: 16,
+            bottom: 16,
+            child: FloatingActionButton(
+              mini: true,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              elevation: 2.0,
+              onPressed: () => _scrollToBottom(),
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
