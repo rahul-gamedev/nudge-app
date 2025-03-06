@@ -3,37 +3,37 @@ import 'package:nudge_app/domain/config/theme/app_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Define raleway text theme for the entire app
+  // Define rubik text theme for the entire app
   static TextTheme _buildTextTheme(TextTheme base, Color textColor) {
-    return GoogleFonts.ralewayTextTheme(base).copyWith(
-      headlineLarge: GoogleFonts.raleway(
+    return GoogleFonts.rubikTextTheme(base).copyWith(
+      headlineLarge: GoogleFonts.rubik(
         textStyle: base.headlineLarge,
         color: textColor,
         fontWeight: FontWeight.w600,
       ),
-      headlineMedium: GoogleFonts.raleway(
+      headlineMedium: GoogleFonts.rubik(
         textStyle: base.headlineMedium,
         color: textColor,
         fontWeight: FontWeight.w600,
       ),
 
-      bodyLarge: GoogleFonts.raleway(
+      bodyLarge: GoogleFonts.rubik(
         textStyle: base.bodyLarge,
         color: textColor,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
       ),
-      bodyMedium: GoogleFonts.raleway(
+      bodyMedium: GoogleFonts.rubik(
         textStyle: base.bodyMedium,
         color: textColor,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
       ),
-      bodySmall: GoogleFonts.raleway(
+      bodySmall: GoogleFonts.rubik(
         textStyle: base.bodySmall,
         color: textColor,
         fontWeight: FontWeight.w300,
       ),
 
-      labelLarge: GoogleFonts.raleway(
+      labelLarge: GoogleFonts.rubik(
         textStyle: base.labelLarge,
         color: textColor,
         fontWeight: FontWeight.w500,
@@ -93,7 +93,7 @@ class AppTheme {
           }),
           foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
           textStyle: WidgetStateProperty.all<TextStyle>(
-            GoogleFonts.raleway(fontWeight: FontWeight.w600, fontSize: 16),
+            GoogleFonts.rubik(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
             const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -169,7 +169,7 @@ class AppTheme {
           }),
           foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
           textStyle: WidgetStateProperty.all<TextStyle>(
-            GoogleFonts.raleway(fontWeight: FontWeight.w600, fontSize: 16),
+            GoogleFonts.rubik(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
             const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
