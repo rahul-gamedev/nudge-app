@@ -160,7 +160,7 @@ class MessageContainerState extends State<MessageContainer> {
                       controller: _scrollController,
                       itemCount: messages.length,
                       padding: const EdgeInsets.only(
-                        bottom: 16,
+                        top: 8,
                       ), // More bottom padding
                       reverse: false,
                       itemBuilder: (context, index) {
@@ -172,28 +172,27 @@ class MessageContainerState extends State<MessageContainer> {
                           onTap: () {},
                           onLongPress: () {
                             _showMessageOptions(context, message);
-                            _showMessageOptions(context, message);
                           },
                         );
                       },
                     ),
           ),
 
-          // Just show the button always for simplicity
-          Positioned(
-            right: 16,
-            bottom: 16,
-            child: FloatingActionButton(
-              mini: true,
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              elevation: 2.0,
-              onPressed: () => _scrollToBottom(),
-              child: Icon(
-                Icons.keyboard_arrow_down,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ),
+          // // Just show the button always for simplicity
+          // Positioned(
+          //   right: 16,
+          //   bottom: 16,
+          //   child: FloatingActionButton(
+          //     mini: true,
+          //     backgroundColor: Theme.of(context).colorScheme.surface,
+          //     elevation: 2.0,
+          //     onPressed: () => _scrollToBottom(),
+          //     child: Icon(
+          //       Icons.keyboard_arrow_down,
+          //       color: Theme.of(context).colorScheme.onSurface,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -68,7 +68,7 @@ class _MessageBubbleState extends State<MessageBubble> {
         onTapCancel: () => setState(() => _isPressed = false),
         child: Container(
           margin: EdgeInsets.only(
-            bottom: 16,
+            bottom: 8,
             left: widget.type == MessageType.sent ? 80 : 16,
             right: widget.type == MessageType.received ? 80 : 16,
           ),
