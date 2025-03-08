@@ -160,7 +160,7 @@ class MessageContainerState extends State<MessageContainer> {
                       controller: _scrollController,
                       itemCount: messages.length,
                       padding: const EdgeInsets.only(
-                        top: 8,
+                        bottom: 16,
                       ), // More bottom padding
                       reverse: false,
                       itemBuilder: (context, index) {
@@ -171,6 +171,7 @@ class MessageContainerState extends State<MessageContainer> {
                           timestamp: message.timestamp,
                           onTap: () {},
                           onLongPress: () {
+                            _showMessageOptions(context, message);
                             _showMessageOptions(context, message);
                           },
                         );

@@ -15,4 +15,5 @@ class IconConfig {
   static const send = "${base}send-horizontal$format";
   static const clipboard = "${base}clipboard$format";
   static const trash = "${base}trash$format";
+  static const chevronDown = "${base}chevron-down$format";
 }
