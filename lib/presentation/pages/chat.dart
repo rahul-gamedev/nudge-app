@@ -23,12 +23,18 @@ class _ChatState extends State<Chat> {
         timestamp: DateTime.now(),
       );
       _messageContainerKey.currentState!.addMessage(message);
-      final reply = Message(
-        content: "Typing...",
-        type: MessageType.received,
-        timestamp: DateTime.now(),
-      );
-      _messageContainerKey.currentState!.addMessage(reply);
+
+      // Add delay before showing the typing message
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (_messageContainerKey.currentState != null) {
+          final reply = Message(
+            content: "Typing...",
+            type: MessageType.received,
+            timestamp: DateTime.now(),
+          );
+          _messageContainerKey.currentState!.addMessage(reply);
+        }
+      });
     }
   }
 

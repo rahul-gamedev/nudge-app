@@ -47,9 +47,9 @@ class _MessageBubbleState extends State<MessageBubble> {
     Color? getBubbleColor() {
       if (widget.type == MessageType.sent) {
         if (_isPressed) {
-          return isDarkMode ? Colors.grey[700] : Colors.grey[300];
+          return isDarkMode ? Colors.grey[800] : Colors.grey[400];
         } else {
-          return isDarkMode ? Colors.grey[800] : Colors.grey[200];
+          return isDarkMode ? Colors.grey[900] : Colors.grey[300];
         }
       }
       return null;

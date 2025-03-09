@@ -1,7 +1,9 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nudge_app/domain/config/icon/icon_config.dart';
 import 'package:intl/intl.dart';
+import 'package:nudge_app/domain/config/icon/icon_config.dart';
+import 'package:nudge_app/domain/config/theme/app_color.dart';
 
 class ChatAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? onMenuPressed;
@@ -97,20 +99,94 @@ class _ChatAppBarState extends State<ChatAppBar> {
 
     // Calculate position for the dialog
     final screenWidth = MediaQuery.of(context).size.width;
-    final dialogWidth = screenWidth * 0.9; // 90% of screen width
+    final dialogWidth =
+        screenWidth * 0.85; // Slightly narrower for better aesthetics
 
     // Position directly below app bar
     final dialogPosition = Offset(
       (screenWidth - dialogWidth) / 2, // Center horizontally
-      appBarOffset.dy + appBarSize.height + 8, // Below app bar with small gap
+      appBarOffset.dy + appBarSize.height + 4, // Below app bar with small gap
     );
 
-    // Show our custom calendar dialog at specific position
-    final DateTime? result = await showDialog<DateTime>(
+    // Configure CalendarDatePicker2
+    final config = CalendarDatePicker2Config(
+      calendarType: CalendarDatePicker2Type.single,
+      selectedDayHighlightColor: theme.primaryColor,
+      weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      weekdayLabelTextStyle: TextStyle(
+        color: AppColor.grey,
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+      ),
+      firstDayOfWeek: 0, // Monday
+      controlsHeight: 40,
+      selectedMonthTextStyle: TextStyle(
+        color: theme.appBarTheme.foregroundColor,
+      ),
+      selectedYearTextStyle: TextStyle(
+        color: theme.appBarTheme.foregroundColor,
+      ),
+
+      // // Add month builder for consistent styling
+      // monthBuilder: ({
+      //   decoration,
+      //   isCurrentMonth,
+      //   isDisabled,
+      //   isSelected,
+      //   required month,
+      //   textStyle,
+      // }) {
+      //   // Style months to match years
+      //   return Container(
+      //     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      //     decoration: BoxDecoration(
+      //       color: isSelected == true ? theme.primaryColor : Colors.transparent,
+      //       borderRadius: BorderRadius.circular(8),
+      //       border:
+      //           isCurrentMonth == true && isSelected != true
+      //               ? Border.all(color: theme.primaryColor, width: 1)
+      //               : null,
+      //     ),
+      //     child: Center(
+      //       child: Text(
+      //         DateFormat('MMM').format(DateTime(DateTime.now().year, month)),
+      //         style:
+      //             isSelected == true
+      //                 ? TextStyle(
+      //                   color: Colors.white,
+      //                   fontWeight: FontWeight.bold,
+      //                 )
+      //                 : isDisabled == true
+      //                 ? TextStyle(color: theme.disabledColor)
+      //                 : isCurrentMonth == true
+      //                 ? TextStyle(
+      //                   color: theme.primaryColor,
+      //                   fontWeight: FontWeight.bold,
+      //                 )
+      //                 : null,
+      //       ),
+      //     ),
+      //   );
+      // },
+
+      // Update layout settings for better alignment
+      centerAlignModePicker: true,
+      dayTextStyle: theme.textTheme.bodyMedium!,
+      selectedDayTextStyle: theme.textTheme.bodyMedium!.copyWith(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+
+      // Add header styling for consistency
+      lastMonthIcon: Icon(Icons.chevron_left),
+      nextMonthIcon: Icon(Icons.chevron_right),
+    );
+
+    // Show the calendar dialog
+    final List<DateTime?>? results = await showDialog<List<DateTime?>>(
       context: context,
-      barrierColor:
-          Colors.transparent, // Optional: makes background transparent
-      useSafeArea: false, // Allow positioning outside safe area
+      useSafeArea: false,
+      barrierColor: Colors.black.withValues(alpha: .5),
       builder: (BuildContext context) {
         return Stack(
           children: [
@@ -118,7 +194,7 @@ class _ChatAppBarState extends State<ChatAppBar> {
             Positioned.fill(
               child: GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
-                child: Container(color: Colors.black54),
+                child: Container(color: Colors.transparent),
               ),
             ),
 
@@ -127,81 +203,62 @@ class _ChatAppBarState extends State<ChatAppBar> {
               left: dialogPosition.dx,
               top: dialogPosition.dy,
               width: dialogWidth,
-              child: Theme(
-                data: theme.copyWith(
-                  // All your existing theme customizations
-                  colorScheme: theme.colorScheme.copyWith(
-                    primary: theme.primaryColor,
-                    onPrimary: Colors.white,
-                    surface: theme.scaffoldBackgroundColor,
-                    onSurface: theme.textTheme.bodyLarge!.color!,
-                  ),
-                  datePickerTheme: DatePickerThemeData(
-                    // Your existing date picker theme
-                    dayStyle: TextStyle(color: theme.colorScheme.onSurface),
-                    dayForegroundColor: WidgetStateProperty.resolveWith<Color>((
-                      states,
-                    ) {
-                      if (states.contains(WidgetState.selected)) {
-                        return Colors.white;
-                      }
-                      return theme.colorScheme.onSurface;
-                    }),
-                    dayBackgroundColor: WidgetStateProperty.resolveWith<Color>((
-                      states,
-                    ) {
-                      if (states.contains(WidgetState.selected)) {
-                        return theme.primaryColor;
-                      }
-                      return Colors.transparent;
-                    }),
-                    todayForegroundColor: WidgetStateProperty.all(
-                      theme.primaryColor,
-                    ),
-                    todayBackgroundColor: WidgetStateProperty.all(
-                      Colors.transparent,
-                    ),
-                    todayBorder: BorderSide(
-                      color: theme.primaryColor,
-                      width: 1,
-                    ),
-                    dayShape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                    ),
-
-                    headerHelpStyle: TextStyle(fontSize: 0),
-                    headerForegroundColor: Colors.transparent,
-                    headerHeadlineStyle: TextStyle(fontSize: 0),
-                    headerBackgroundColor: Colors.transparent,
-                  ),
-                ),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                curve: Curves.easeOutCubic,
                 child: Material(
                   borderRadius: BorderRadius.circular(16),
                   elevation: 8,
+                  shadowColor: theme.shadowColor.withValues(alpha: .4),
                   color: theme.scaffoldBackgroundColor,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                      horizontal: 8.0,
-                    ),
+                    padding: const EdgeInsets.all(12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: 320,
-                          child: CalendarDatePicker(
-                            initialDate: selectedDate,
-                            firstDate: DateTime(2020),
-                            lastDate: DateTime(2030),
-                            onDateChanged: (newDate) {
+                        // CalendarDatePicker2
+                        CalendarDatePicker2(
+                          config: config,
+                          value: [selectedDate],
+                          onValueChanged: (dates) {
+                            if (dates.isNotEmpty) {
                               setState(() {
-                                selectedDate = newDate;
+                                selectedDate = dates.first;
                               });
-                              Navigator.of(context).pop(newDate);
-                            },
-                            initialCalendarMode: DatePickerMode.day,
+                              Navigator.of(context).pop(dates);
+                            }
+                          },
+                        ),
+
+                        // Today button remains the same...
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  final today = DateTime.now();
+                                  setState(() {
+                                    selectedDate = today;
+                                  });
+                                  Navigator.of(context).pop([today]);
+                                },
+                                style: TextButton.styleFrom(
+                                  foregroundColor: theme.primaryColor,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                ),
+                                child: Text(
+                                  "Today",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -215,9 +272,9 @@ class _ChatAppBarState extends State<ChatAppBar> {
       },
     );
 
-    if (result != null) {
+    if (results != null && results.isNotEmpty && results.first != null) {
       setState(() {
-        selectedDate = result;
+        selectedDate = results.first!;
       });
     }
   }
