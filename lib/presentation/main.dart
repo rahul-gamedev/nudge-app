@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nudge_app/domain/config/theme/app_theme.dart';
+import 'package:nudge_app/presentation/components/app_bar/app_drawer.dart';
 import 'pages/chat.dart';
 
 void main() {
@@ -16,8 +17,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      home: const Chat(),
+      themeMode: ThemeMode.system,
+      home: Scaffold(drawer: const AppDrawer(), body: Chat()),
     );
   }
 }
