@@ -72,7 +72,60 @@ class _ChatAppBarState extends State<ChatAppBar> {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            final RenderBox button = context.findRenderObject() as RenderBox;
+            final RenderBox overlay =
+                Overlay.of(context).context.findRenderObject() as RenderBox;
+            final position = button.localToGlobal(
+              Offset.zero,
+              ancestor: overlay,
+            );
+            final size = button.size;
+
+            // Position menu at the right side of the screen
+            final screenWidth = MediaQuery.of(context).size.width;
+
+            showMenu(
+              context: context,
+              position: RelativeRect.fromLTRB(
+                screenWidth - 170, // Position from right side (menu width ~160)
+                position.dy + size.height,
+                10, // Right padding
+                0,
+              ),
+              elevation: 8,
+              shadowColor: theme.shadowColor.withValues(alpha: .4),
+              color: theme.scaffoldBackgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              items: [
+                PopupMenuItem(
+                  value: 'journal',
+                  child: Text(
+                    'View Journal',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 'clear',
+                  child: Text('Clear Chat', style: theme.textTheme.bodyMedium),
+                ),
+              ],
+            ).then((value) {
+              if (value != null) {
+                // Handle menu item selection
+                switch (value) {
+                  case 'journal':
+                    // Handle settings
+                    break;
+                  case 'clear':
+                    // Handle profile
+                    break;
+                }
+              }
+            });
+          },
           icon: SvgPicture.asset(
             IconConfig.ellipsis,
             colorFilter: ColorFilter.mode(

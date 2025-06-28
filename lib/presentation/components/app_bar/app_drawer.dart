@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nudge_app/domain/config/icon/icon_config.dart';
+import 'package:nudge_app/presentation/pages/chat.dart';
+import 'package:nudge_app/presentation/pages/journal_list.dart';
+import 'package:nudge_app/presentation/pages/settings.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -36,16 +39,19 @@ class AppDrawer extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
 
               leading: SvgPicture.asset(
-                IconConfig.home,
+                IconConfig.messageSquare,
                 colorFilter: ColorFilter.mode(
                   theme.iconTheme.color!,
                   BlendMode.srcIn,
                 ),
                 height: 24,
               ),
-              title: Text('Home', style: theme.textTheme.bodyLarge),
+              title: Text('Chat', style: theme.textTheme.bodyLarge),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => const Chat()));
                 // Navigate to home
               },
             ),
@@ -53,16 +59,19 @@ class AppDrawer extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
 
               leading: SvgPicture.asset(
-                IconConfig.user,
+                IconConfig.notebook,
                 colorFilter: ColorFilter.mode(
                   theme.iconTheme.color!,
                   BlendMode.srcIn,
                 ),
                 height: 24,
               ),
-              title: Text('Profile', style: theme.textTheme.bodyLarge),
+              title: Text('Journal', style: theme.textTheme.bodyLarge),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const JournalList()),
+                );
                 // Navigate to profile
               },
             ),
@@ -84,26 +93,12 @@ class AppDrawer extends StatelessWidget {
               title: Text('Settings', style: theme.textTheme.bodyLarge),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const Settings()),
+                );
                 // Navigate to settings
               },
             ),
-            ListTile(
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-              leading: SvgPicture.asset(
-                IconConfig.logOut,
-                colorFilter: ColorFilter.mode(
-                  theme.iconTheme.color!,
-                  BlendMode.srcIn,
-                ),
-                height: 24,
-              ),
-              title: Text('Logout', style: theme.textTheme.bodyLarge),
-              onTap: () {
-                Navigator.pop(context);
-                // Handle logout
-              },
-            ),
-
             const SizedBox(height: 16),
           ],
         ),

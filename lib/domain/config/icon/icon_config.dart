@@ -16,4 +16,7 @@ class IconConfig {
   static const clipboard = "${base}clipboard$format";
   static const trash = "${base}trash$format";
   static const chevronDown = "${base}chevron-down$format";
+  static const messageCircle = "${base}message-circle$format";
+  static const messageSquare = "${base}message-square$format";
+  static const notebook = "${base}notebook$format";
 }
